@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npx tsc",
     "dev": "nodemon index.ts",
+    "start": "nodemon index.ts",
     "test": "Dziala"
   },
   "repository": {
@@ -15,11 +16,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/mongoose": "^5.11.96",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "express-router": "^0.0.1",
+    "mongoose": "^8.7.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
     "nodemon": "^3.1.7",
