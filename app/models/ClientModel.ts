@@ -7,13 +7,29 @@ const ClientSchema: Schema = new Schema({
     required: true,
   },
   address: {
-    type: String,
-    required: true,
+    city: {
+      type: String,
+      required: true,
+    },
+    street: {
+      type: String,
+      required: true,
+    },
+    nbr: {
+      type: String,
+      required: true,
+    },
   },
   nip: {
     type: String,
     required: true,
   },
+  actions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Action", // Referencja do modelu akcji
+    }
+  ]
 });
 
 export default mongoose.model<IClient>("Client", ClientSchema);
