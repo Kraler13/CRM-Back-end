@@ -4,6 +4,7 @@ import config from "./config";
 import cors from "cors";
 import mongoose from "mongoose";
 import ClientRoutes from "./app/routes/ClientRoutes";
+import ActionRoutes from "./app/routes/ActionRouters";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(express.json())
 app.use(cors());
 
 app.use('/clients', ClientRoutes)
+app.use('/actions', ActionRoutes)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

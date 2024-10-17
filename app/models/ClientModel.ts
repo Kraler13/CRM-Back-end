@@ -27,7 +27,7 @@ const ClientSchema: Schema = new Schema({
   actions: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Action", // Referencja do modelu akcji
+      ref: "Action",
     }
   ]
 });
