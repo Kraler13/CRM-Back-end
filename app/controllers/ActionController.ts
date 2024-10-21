@@ -5,7 +5,7 @@ import { IAction } from "../types/Types";
 
 const actionController = {
   index: (req: Request, res: Response) => {
-    const clientId = req.params.id;
+    const clientId = req.params.clientId;
 
     Action.find({ client: clientId })
       .then((actions) => {
@@ -18,20 +18,44 @@ const actionController = {
         });
       });
   },
+
+  read: (req: Request, res: Response) => {
+    const { id } = req.params;
+    Action.findById(id)
+      .then((action) => {
+        res.status(200).json(action);
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Error while fetching actions",
+          error: err,
+        });
+      });
+  },
+
   createAction: (req: Request<{}, {}, IAction>, res: Response) => {
+    console.log("Request body:", req.body);
     const newAction = new Action(req.body);
 
     newAction
       .save()
       .then((savedAction) => {
+        console.log("Action saved:", savedAction);
         Client.findByIdAndUpdate(req.body.client, {
           $push: { actions: savedAction._id },
+        }).then(() => {
+          res.json(savedAction);
         })
-          .then(() => {
-            res.json(savedAction);
-          })
+        .catch((err) => {
+          console.error("Error updating client:", err);
+          res.status(500).json({
+             message: "Error while updating client actions",
+             error: err,
+          });
+       });
       })
       .catch((err) =>
+        
         res.status(500).json({
           message: "Error while creating Action",
           error: err,
@@ -43,7 +67,9 @@ const actionController = {
     const { actionId } = req.body;
 
     if (!actionId) {
-      res.status(400).json({ message: "actionId is required in the request body" });
+      res
+        .status(400)
+        .json({ message: "actionId is required in the request body" });
       return;
     }
 
@@ -72,10 +98,12 @@ const actionController = {
       });
     }
   },
-  
+
   editAction: (req: Request<{}, {}, IAction>, res: Response) => {
-    const actionId = req.body.id;
+    const actionId = req.body._id;
     const updatedData = req.body;
+
+    console.log(actionId)
 
     Action.findByIdAndUpdate(actionId, updatedData, { new: true })
       .then((updatedAction) => {

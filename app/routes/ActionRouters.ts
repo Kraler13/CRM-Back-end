@@ -3,9 +3,10 @@ import actionController from "../controllers/ActionController";
 
 const router = express.Router();
 
-router.get("/:id", actionController.index);
+router.get("/list/:clientId", actionController.index);
+router.get("/:id", actionController.read);
 router.post("/add", actionController.createAction);
 router.delete('/delete/:id', actionController.deleteAction);
-router.put('/edit/:id', actionController.editAction);
+router.put('/edit', actionController.editAction);
 
 export default router;
