@@ -28,7 +28,7 @@ app.use(cors());
 
 app.use('/clients', ClientRoutes)
 app.use('/actions', ActionRoutes)
-app.use('/api', UserRoutes)
+app.use('/auth', UserRoutes)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

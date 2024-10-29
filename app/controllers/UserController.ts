@@ -10,7 +10,7 @@ export const UserController = {
     newUser
       .save()
       .then((user) => {
-        res.status(201).json({ message: "User created successfully", user });
+        res.status(201).json({ message: "User created successfully", success: true });
       })
       .catch((err) => {
         if (err.code === 11000) {
